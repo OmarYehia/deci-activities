@@ -9,6 +9,10 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function takeDamage(warrior, weapon) {
+    warrior.health -= weapon.damage;
+}
+
 const weapons = [
     createWeapon('Sword', getRandomNumber(20, 30), getRandomNumber(2, 4)),
     createWeapon('Axe', getRandomNumber(5, 45), getRandomNumber(2, 4)),
@@ -165,7 +169,7 @@ function createWarrior(name, health, weapon = { name: 'none', damage: 0 }) {
         weapon,
         attack(target) {
             const damage = this.weapon.damage;
-            target.health -= damage;
+            takeDamage(target, this.weapon);
             console.log(`${this.name} attacks ${target.name} with ${this.weapon.name} for ${damage} damage.`);
         },
         changeWeapon(newWeapon) {
